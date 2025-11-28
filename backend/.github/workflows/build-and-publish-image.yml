@@ -1,0 +1,22 @@
+name: Build and Publish
+on:
+push:
+branches: [ main ]
+jobs:
+build:
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v4
+- name: Build Docker image
+run: |
+docker build -t answer-validator:latest backend/
+# push to DockerHub (example)
+- name: Log in to DockerHub
+uses: docker/login-action@v2
+with:
+username: ${{ secrets.DOCKERHUB_USER }}
+password: ${{ secrets.DOCKERHUB_TOKEN }}
+- name: Push image
+run: |
+docker tag answer-validator:latest ${{ secrets.DOCKERHUB_USER }}/answer-validator:latest
+docker push ${{ secrets.DOCKERHUB_USER }}/answer-validator:latest

@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+sentence-transformers
+pandas
+scikit-learn
+python-multipart
+PyPDF2
+openpyxl
+python-docx
+pytesseract
+Pillow
