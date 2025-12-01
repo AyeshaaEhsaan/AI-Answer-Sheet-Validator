@@ -11,7 +11,8 @@ export default function PremiumAnswerValidator() {
   const [processingStage, setProcessingStage] = useState('');
   const [stats, setStats] = useState(null);
 
-  const API_URL = 'http://127.0.0.1:8000';
+  //const API_URL = 'http://127.0.0.1:8000';
+  const API_URL = process.env.REACT_APP_API_URL || 'http://3.239.74.83:8000';
 
   useEffect(() => {
     if (results) {
