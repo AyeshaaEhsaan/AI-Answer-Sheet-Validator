@@ -11,8 +11,11 @@ export default function PremiumAnswerValidator() {
   const [processingStage, setProcessingStage] = useState('');
   const [stats, setStats] = useState(null);
 
-  //const API_URL = 'http://127.0.0.1:8000';
-  const API_URL = process.env.REACT_APP_API_URL || 'http://3.239.74.83:8000';
+  //const API_URL = 'http://127.0.0.1:8000'; // Localhost for development
+  //const API_URL = "http://3.239.74.83:8000"; // AWS EC2 Instance // error uplaoding
+  // const API_URL = 'http://localhost:8000'; // correct for local run
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+  //const API_URL = process.env.REACT_APP_API_URL || 'http://3.239.74.83:8000'; // Use environment variable or default to AWS EC2
 
   useEffect(() => {
     if (results) {
