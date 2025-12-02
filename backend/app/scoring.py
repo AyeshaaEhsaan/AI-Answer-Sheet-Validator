@@ -8,19 +8,26 @@ from sklearn.metrics.pairwise import cosine_similarity
 from pathlib import Path
 import PyPDF2
 import docx
+import gc
+
+# Reduce memory usage
+os.environ['TRANSFORMERS_OFFLINE'] = '0'
+os.environ['TOKENIZERS_PARALLELISM'] = 'false'
 
 MODEL_NAME = 'paraphrase-MiniLM-L6-v2'
 _model = None
 _context_embeddings = None
 _context_data = None
 
-
 def _load_model():
     global _model
     if _model is None:
+        # Clear memory before loading
+        gc.collect()
         _model = SentenceTransformer(MODEL_NAME)
+        # Use CPU only (saves memory)
+        _model = _model.to('cpu')
     return _model
-
 
 def extract_text_from_file(file_path):
     """Extract text from various file formats"""
