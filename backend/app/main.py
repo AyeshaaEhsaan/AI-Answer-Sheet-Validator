@@ -5,13 +5,6 @@ import json
 from pathlib import Path
 import time
 from prometheus_client import Counter, Histogram
-import sentry_sdk
-
-# Initialize Sentry (get real DSN from sentry.io)
-# sentry_sdk.init(
-#     dsn="https://your-real-dsn@sentry.io/project-id",
-#     traces_sample_rate=1.0,
-# )
 
 from app.scoring import build_context_from_solved, grade_students_from_csv
 
@@ -26,7 +19,7 @@ app = FastAPI(title="AI Answer Validator API")
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins for now
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -75,25 +68,3 @@ async def get_results():
     if not r.exists():
         return JSONResponse({'status':'no_results'})
     return JSONResponse(json.loads(r.read_text()))
-```
-
----
-
-## 3. Update requirements.txt
-
-Add monitoring packages:
-```
-fastapi
-uvicorn[standard]
-sentence-transformers
-pandas
-scikit-learn
-python-multipart
-PyPDF2
-openpyxl
-python-docx
-Pillow
-pytest
-httpx
-prometheus-client
-sentry-sdk[fastapi]
