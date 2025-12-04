@@ -14,9 +14,12 @@ export default function PremiumAnswerValidator() {
   //const API_URL = 'http://127.0.0.1:8000'; // Localhost for development
   //const API_URL = "http://3.239.74.83:8000"; // AWS EC2 Instance // error uplaoding
   // const API_URL = 'http://localhost:8000'; // correct for local run
-  //const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000'; //NEXT must be starting word
-  const API_URL = process.env.REACT_APP_API_URL || 'https://ai-answer-sheet-validator-1.onrender.com';
+  //const API_URL =  'http://localhost:8000'; //NEXT must be starting word
+  //const API_URL = process.env.REACT_APP_API_URL || 'https://ai-answer-sheet-validator-1.onrender.com';
   //const API_URL = process.env.REACT_APP_API_URL || 'http://3.239.74.83:8000'; // Use environment variable or default to AWS EC2
+  //const API_URL = process.env.REACT_APP_API_URL='http://127.0.0.1:8000';// successful LOCAL run
+  const API_URL = process.env.REACT_APP_API_URL='https://ai-answer-sheet-validator-1.onrender.com';
+
 
   useEffect(() => {
     if (results) {
