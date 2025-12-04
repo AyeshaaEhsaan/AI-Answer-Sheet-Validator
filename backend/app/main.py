@@ -17,11 +17,14 @@ UPLOAD_DIR.mkdir(exist_ok=True)
 app = FastAPI(title="AI Answer Validator API")
 
 # Add CORS middleware
+#origins = [
+   # "https://ai-answer-sheet-validator-final-att.vercel.app",  # Vercel frontend
+  #  "http://localhost:3000"  # for local development
+]#
 origins = [
-    "https://ai-answer-sheet-validator-final-att.vercel.app",  # Vercel frontend
-    "http://localhost:3000"  # for local development
+    "https://ai-answer-sheet-validator-final-attempt-b4rzvolxq.vercel.app",  # current frontend
+    "http://localhost:3000"
 ]
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
