@@ -7,6 +7,7 @@ from pathlib import Path
 import time
 from prometheus_client import Counter, Histogram
 from app.scoring import build_context_from_solved, grade_students_from_csv
+from fastapi import Request
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 UPLOAD_DIR = BASE_DIR / "uploads"
@@ -31,7 +32,7 @@ app.add_middleware(
 
 
 # Explicit OPTIONS routes for CORS preflight
-@app.options("/upload/solved")
+"""@app.options("/upload/solved")
 async def options_solved():
     return Response(status_code=204, headers={
         "Access-Control-Allow-Origin": "*",
@@ -45,6 +46,26 @@ async def options_students():
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "POST,OPTIONS",
         "Access-Control-Allow-Headers": "*"
+    }) """
+
+@app.options("/upload/solved")
+async def options_solved(request: Request):
+    origin = request.headers.get("origin")
+    return Response(status_code=204, headers={
+        "Access-Control-Allow-Origin": origin if origin else "",
+        "Access-Control-Allow-Methods": "POST,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type,Authorization",
+        "Access-Control-Allow-Credentials": "true"
+    })
+
+@app.options("/upload/students")
+async def options_students(request: Request):
+    origin = request.headers.get("origin")
+    return Response(status_code=204, headers={
+        "Access-Control-Allow-Origin": origin if origin else "",
+        "Access-Control-Allow-Methods": "POST,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type,Authorization",
+        "Access-Control-Allow-Credentials": "true"
     })
 
 # Monitoring metrics
