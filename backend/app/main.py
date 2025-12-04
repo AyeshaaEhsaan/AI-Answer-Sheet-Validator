@@ -40,7 +40,7 @@ async def monitor_requests(request, call_next):
 # API Endpoints
 @app.get("/")
 async def root():
-    return {"message": "AI Answer Validator API", "status": "running"}
+    return JSONResponse({"message": "AI Answer Validator API", "status": "running"}, headers={"Access-Control-Allow-Origin": "*"})
 
 @app.post('/upload/solved')
 async def upload_solved(file: UploadFile = File(...)):
@@ -48,7 +48,7 @@ async def upload_solved(file: UploadFile = File(...)):
     content = await file.read()
     dest.write_bytes(content)
     build_context_from_solved(str(dest))
-    return JSONResponse({'status':'ok', 'detail':'solved sheet uploaded and context built'})
+    return JSONResponse({'status':'ok', 'detail':'solved sheet uploaded and context built'}, headers={"Access-Control-Allow-Origin": "*"})
 
 @app.post('/upload/students')
 async def upload_students(file: UploadFile = File(...), background_tasks: BackgroundTasks = None):
@@ -57,14 +57,14 @@ async def upload_students(file: UploadFile = File(...), background_tasks: Backgr
     dest.write_bytes(content)
     if background_tasks:
         background_tasks.add_task(grade_students_from_csv, str(dest), str(UPLOAD_DIR / 'results.json'))
-        return JSONResponse({'status':'ok', 'detail':'student file uploaded; grading started'})
+        return JSONResponse({'status':'ok', 'detail':'student file uploaded; grading started'}, headers={"Access-Control-Allow-Origin": "*"})
     else:
         grade_students_from_csv(str(dest), str(UPLOAD_DIR / 'results.json'))
-        return JSONResponse({'status':'ok', 'detail':'graded synchronously'})
+        return JSONResponse({'status':'ok', 'detail':'graded synchronously'}, headers={"Access-Control-Allow-Origin": "*"})
 
 @app.get('/results')
 async def get_results():
     r = UPLOAD_DIR / 'results.json'
     if not r.exists():
-        return JSONResponse({'status':'no_results'})
-    return JSONResponse(json.loads(r.read_text()))
+        return JSONResponse({'status':'no_results'}, headers={"Access-Control-Allow-Origin": "*"})
+    return JSONResponse(json.loads(r.read_text()), headers={"Access-Control-Allow-Origin": "*"})
