@@ -1,0 +1,20 @@
+{
+  "questions": [
+    {
+      "question": "Q1",
+      "answer": "Lungs are the primary organs for respiration. they exchange oxygen and carbon dioxide.",
+      "max_marks": 5
+    },
+    {
+      "question": "Q2",
+      "answer": "The heart pumps blood through the circulatory system.",
+      "max_marks": 3
+    },
+    {
+      "question": "Q3",
+      "answer": "Red blood cells carry oxygen throughout the body.",
+      "max_marks": 2
+    }
+  ],
+  "total_marks": 10
+}
