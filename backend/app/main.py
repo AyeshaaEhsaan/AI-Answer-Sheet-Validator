@@ -1,14 +1,13 @@
-from fastapi import FastAPI, UploadFile, File, BackgroundTasks
+
+from fastapi import FastAPI, UploadFile, File, BackgroundTasks, Response
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from pathlib import Path
 import time
 from prometheus_client import Counter, Histogram
-
 from app.scoring import build_context_from_solved, grade_students_from_csv
 
-# Setup paths
 BASE_DIR = Path(__file__).resolve().parents[1]
 UPLOAD_DIR = BASE_DIR / "uploads"
 UPLOAD_DIR.mkdir(exist_ok=True)
@@ -17,13 +16,36 @@ UPLOAD_DIR.mkdir(exist_ok=True)
 app = FastAPI(title="AI Answer Validator API")
 
 # Add CORS middleware
+origins = [
+    "https://ai-answer-sheet-validator-final-att.vercel.app",  # Vercel frontend
+    "http://localhost:3000"  # for local development
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# Explicit OPTIONS routes for CORS preflight
+@app.options("/upload/solved")
+async def options_solved():
+    return Response(status_code=204, headers={
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST,OPTIONS",
+        "Access-Control-Allow-Headers": "*"
+    })
+
+@app.options("/upload/students")
+async def options_students():
+    return Response(status_code=204, headers={
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST,OPTIONS",
+        "Access-Control-Allow-Headers": "*"
+    })
 
 # Monitoring metrics
 REQUEST_COUNT = Counter('app_requests_total', 'Total requests')
