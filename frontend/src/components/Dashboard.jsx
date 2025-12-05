@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Upload, CheckCircle, Award, FileText, Users, BarChart3, Download, AlertCircle } from 'lucide-react';
+import { Upload, CheckCircle, Award, FileText, TrendingUp, Users, BarChart3, Download, AlertCircle, Sparkles } from 'lucide-react';
 
 export default function PremiumAnswerValidator() {
   const [solvedFile, setSolvedFile] = useState(null);
@@ -11,17 +11,8 @@ export default function PremiumAnswerValidator() {
   const [processingStage, setProcessingStage] = useState('');
   const [stats, setStats] = useState(null);
 
-  //const API_URL = 'http://127.0.0.1:8000'; // Localhost for development
-  //const API_URL = "http://3.239.74.83:8000"; // AWS EC2 Instance // error uplaoding
-  // const API_URL = 'http://localhost:8000'; // correct for local run
-  //const API_URL =  'http://localhost:8000'; //NEXT must be starting word
-  //const API_URL = process.env.REACT_APP_API_URL || 'https://ai-answer-sheet-validator-1.onrender.com';
-  //const API_URL = process.env.REACT_APP_API_URL || 'http://3.239.74.83:8000'; // Use environment variable or default to AWS EC2
-  //const API_URL = process.env.REACT_APP_API_URL='http://127.0.0.1:8000';// successful LOCAL run
-  //const API_URL = process.env.REACT_APP_API_URL='https://ai-answer-sheet-validator-1.onrender.com';
-  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
-
-
+  //const API_URL = 'http://127.0.0.1:8000';
+  const API_URL = process.env.REACT_APP_API_URL || 'http://3.239.74.83:8000';
 
   useEffect(() => {
     if (results) {

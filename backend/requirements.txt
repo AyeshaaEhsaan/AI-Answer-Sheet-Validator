@@ -13,3 +13,6 @@ httpx
 prometheus-client
 sentry-sdk[fastapi]
 prometheus_client
+passlib[bcrypt]
+python-jose[cryptography]
+python-multipart
