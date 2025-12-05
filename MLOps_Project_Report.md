@@ -3,7 +3,7 @@
 **Project Name:** AI Answer Sheet Validator  
 **Technology Stack:** FastAPI, Sentence-Transformers, PyTorch, Docker  
 **Date:** November 24, 2025  
-**Student:** [Your Name]
+**Student:** Ayesha Ehsaan, Ayesha Saeed, Nigarish Rehman
 
 ---
 
